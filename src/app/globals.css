@@ -1,0 +1,256 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/*
+ * ChristianTooling design tokens: "a white gallery"
+ * ------------------------------------------------------------------
+ * Product visuals are the event; type and controls stay quiet around them.
+ *  - White canvas, with Studio Mist (#f5f5f7) bands for alternate sections.
+ *  - One blue, used only for links (Apple Blue) and compact filled pills
+ *    (Pricing Blue). No gradients on the page, no shadows on surfaces.
+ *  - 28px radii on cards and media, fully round pills for controls.
+ * See docs/DESIGN_SYSTEM.md.
+ */
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  /* Surfaces */
+  --color-gallery-white: #ffffff;
+  --color-studio-mist: #f5f5f7;
+  --color-paper-frost: #fafafc;
+  --color-hairline-silver: #d6d6d6;
+  --color-control-gray: #e6e6e8;
+
+  /* Text and controls */
+  --color-ink: #1d1d1f;
+  --color-slate: #6e6e73;
+  --color-steel: #86868b;
+  --color-apple-blue: #0066cc;
+  --color-pricing-blue: #0071e3;
+  --color-launch-orange: #b64400;
+
+  /* Layout widths */
+  --container-page: 80rem;
+  --container-reading: 42rem;
+
+  /* 28px is the signature radius for cards and media */
+  --radius-3xl: 1.75rem;
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@theme inline {
+  --font-sans:
+    "SF Pro Text", -apple-system, BlinkMacSystemFont, var(--font-inter), "Helvetica Neue", Arial,
+    sans-serif;
+  --font-display:
+    "SF Pro Display", -apple-system, BlinkMacSystemFont, var(--font-inter), "Helvetica Neue", Arial,
+    sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-muted: var(--destructive-muted);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Blue punctuation for icons, links and small emphasis */
+  --color-highlight: var(--highlight);
+  --color-highlight-muted: var(--highlight-muted);
+  --color-highlight-strong: var(--highlight-strong);
+
+  --color-success: var(--success);
+  --color-success-muted: var(--success-muted);
+  --color-warning: var(--warning);
+  --color-warning-muted: var(--warning-muted);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+}
+
+:root {
+  --radius: 0.75rem;
+
+  --background: #ffffff;
+  --foreground: #1d1d1f;
+  --card: #ffffff;
+  --card-foreground: #1d1d1f;
+  --popover: #ffffff;
+  --popover-foreground: #1d1d1f;
+  --primary: #0071e3; /* Pricing Blue: compact filled controls only */
+  --primary-foreground: #ffffff;
+  --secondary: #f5f5f7;
+  --secondary-foreground: #1d1d1f;
+  --muted: #f5f5f7;
+  --muted-foreground: #6e6e73; /* 5.1:1 on white, 4.7:1 on Studio Mist */
+  --accent: #f5f5f7;
+  --accent-foreground: #1d1d1f;
+  --destructive: #b3261e;
+  --destructive-muted: #fdf0ef;
+  --border: #d6d6d6;
+  --input: #86868b; /* 3.5:1 on white for form controls */
+  --ring: #0071e3;
+
+  --highlight: #0066cc;
+  --highlight-muted: #f5f5f7;
+  --highlight-strong: #0066cc;
+
+  --success: #1d7a3a;
+  --success-muted: #eef8f1;
+  --warning: #b64400;
+  --warning-muted: #fdf3ea;
+}
+
+/* Dark tokens are prepared for a future theme toggle (not enabled). */
+.dark {
+  --background: #000000;
+  --foreground: #f5f5f7;
+  --card: #1d1d1f;
+  --card-foreground: #f5f5f7;
+  --popover: #1d1d1f;
+  --popover-foreground: #f5f5f7;
+  --primary: #2997ff;
+  --primary-foreground: #ffffff;
+  --secondary: #1d1d1f;
+  --secondary-foreground: #f5f5f7;
+  --muted: #1d1d1f;
+  --muted-foreground: #a1a1a6;
+  --accent: #2c2c2e;
+  --accent-foreground: #f5f5f7;
+  --destructive: #ff6961;
+  --destructive-muted: #3a1a18;
+  --border: #424245;
+  --input: #6e6e73;
+  --ring: #2997ff;
+  --highlight: #2997ff;
+  --highlight-muted: #1d1d1f;
+  --highlight-strong: #2997ff;
+  --success: #5dd17f;
+  --success-muted: #17301f;
+  --warning: #ff9f5a;
+  --warning-muted: #3a2412;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+    font-size: 17px;
+    line-height: 1.47;
+    letter-spacing: -0.374px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-balance;
+  }
+
+  ::selection {
+    background-color: #b3d7ff;
+    color: #1d1d1f;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+}
+
+/* ---- Type scale (clamped so 80px display collapses gracefully on phones) ---- */
+
+/* Product kicker: 21px / 600 */
+@utility text-kicker {
+  font-family: var(--font-display);
+  font-size: 1.3125rem;
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: 0.231px;
+}
+
+/* Hero display: 80px / 600, 1.05 line height, -1.2px tracking at full size */
+@utility text-hero {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 1.2rem + 5.6vw, 5rem);
+  line-height: 1.05;
+  font-weight: 600;
+  letter-spacing: clamp(-1.2px, -0.015em, -0.6px);
+}
+
+/* Section heading: 48px / 600 */
+@utility text-section {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 1.4rem + 2.6vw, 3rem);
+  line-height: 1.08;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+/* Feature statement: 40px / 600 */
+@utility text-feature {
+  font-family: var(--font-display);
+  font-size: clamp(1.625rem, 1.2rem + 1.8vw, 2.5rem);
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+
+/* Lead copy: 21px, quiet */
+@utility text-lead {
+  font-size: 1.3125rem;
+  line-height: 1.33;
+  font-weight: 400;
+  letter-spacing: 0.011em;
+}
+
+/* Compact controls and navigation: 12px */
+@utility text-compact {
+  font-size: 0.75rem;
+  line-height: 1.33;
+  letter-spacing: -0.12px;
+}
+
+/* Kept for existing section labels; sentence case, no shouting. */
+@utility eyebrow {
+  font-family: var(--font-display);
+  font-size: 1.3125rem;
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: 0.231px;
+}
+
+/* Horizontal scrollers (anchor nav, highlights) hide the bar but stay scrollable. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

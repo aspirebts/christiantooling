@@ -1,0 +1,12 @@
+-- =============================================================================
+-- Local development seed (runs on `supabase db reset` and preview branches only)
+-- =============================================================================
+-- Reference data that production also needs (practice categories, technology
+-- types, skills, roles) lives in supabase/migrations so `supabase db push`
+-- delivers it everywhere.
+--
+-- Intentionally empty: do NOT add users with known passwords here. Preview
+-- branches run this file, and a predictable admin login would be a security
+-- hole. To create your first administrator, sign up through the app, then run
+-- the snippet in README.md ("Create the first super administrator").
+-- =============================================================================
